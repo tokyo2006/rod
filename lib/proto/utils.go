@@ -189,24 +189,34 @@ func PatternToReg(pattern string) string {
 	return `\A` + strings.TrimSpace(pattern) + `\z`
 }
 
-// Rect of the box model
-func (box *DOMBoxModel) Rect() *DOMRect {
-	return &DOMRect{
-		X:      box.Content[0],
-		Y:      box.Content[1],
-		Width:  box.Content[2] - box.Content[0],
-		Height: box.Content[7] - box.Content[1],
-	}
+// X of the rectangle
+func (q DOMQuad) X() float64 {
+	return q[0]
+}
+
+// Y of the rectangle
+func (q DOMQuad) Y() float64 {
+	return q[1]
+}
+
+// Width of the rectangle
+func (q DOMQuad) Width() float64 {
+	return q[2] - q[0]
+}
+
+// Height of the rectangle
+func (q DOMQuad) Height() float64 {
+	return q[7] - q[1]
 }
 
 // CenterX of the rectangle
-func (rect *DOMRect) CenterX() float64 {
-	return rect.X + rect.Width/2
+func (q DOMQuad) CenterX() float64 {
+	return q.X() + q.Width()/2
 }
 
 // CenterY of the rectangle
-func (rect *DOMRect) CenterY() float64 {
-	return rect.Y + rect.Height/2
+func (q DOMQuad) CenterY() float64 {
+	return q.Y() + q.Height()/2
 }
 
 // MoveTo X and Y to x and y
